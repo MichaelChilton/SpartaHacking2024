@@ -8,10 +8,19 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.screenmanager import SlideTransition
 
 
+# thanks git for working
+class SecondView(Screen):
+    def __init__(self, screen_manager, **kwargs):
+        super(SecondView, self).__init__(**kwargs)
+        self.name = "new_view"
+        self.screen_manager = screen_manager
+
+
 class SecondView(Screen):
     def __init__(self, **kwargs):
         super(SecondView, self).__init__(**kwargs)
         self.name = "new_view"
+
         layout = BoxLayout(orientation="vertical")
         self.label = Label(text="This is the second view")
         layout.add_widget(self.label)
