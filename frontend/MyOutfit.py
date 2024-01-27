@@ -6,9 +6,10 @@ from kivy.uix.boxlayout import BoxLayout
 import os
 from kivy.uix.image import Image
 
-#Class Works do not change
+
+# Class Works do not change
 class MyOutFit(Screen):
-    def __init__(self, screen_manager,**kwargs):
+    def __init__(self, screen_manager, **kwargs):
         super(MyOutFit, self).__init__(**kwargs)
         self.screen_manager = screen_manager
         layout = BoxLayout(orientation="vertical")
@@ -29,12 +30,9 @@ class MyOutFit(Screen):
         btn = Button(text='Click me', size_hint_y=None, height=75)
         btn.bind(on_press=self.on_button_press)
 
-
         layout.add_widget(btn)
         self.add_widget(layout)
 
     def on_button_press(self, instance):
         layout = BoxLayout(orientation="vertical")
         instance.text = 'You clicked me!'
-
-
