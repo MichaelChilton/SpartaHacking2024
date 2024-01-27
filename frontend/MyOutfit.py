@@ -21,15 +21,18 @@ class MyOutfitScreen(Screen):
 
         # Create a button that switches back to the main screen
         button = Button(text="My Outfit", valign='top')
-        button.bind(on_release=lambda x: self.change_screen("main"))
+        button.bind(on_release=lambda x: self.change_screen("MyOutfit"))
         layout.add_widget(button)
         self.add_widget(layout)
 
     def change_screen(self, screen_name):
-        # Set the transition
-        self.manager.transition = SlideTransition(direction='right')
-        self.manager.current = screen_name
-
+        if screen_name == "MyOutfit":
+            # Set the transition
+            self.manager.transition = SlideTransition(direction='right')
+            self.manager.current = screen_name
+        else:
+            # Handle the case when switching to the last screen
+            App.get_running_app().stop()
 
 class ImageRowApp(App):
     def build(self):
@@ -45,7 +48,7 @@ class ImageRowApp(App):
 
         # Create a button that switches to the new screen
         button = Button(text="My Outfit", valign='top')
-        button.bind(on_release=lambda x: self.change_screen(sm, "new_view"))
+        button.bind(on_release=lambda x: self.change_screen(sm, "MyOutfitScreen"))
         layout.add_widget(button)
 
         # Get a list of all files in the specified folder
