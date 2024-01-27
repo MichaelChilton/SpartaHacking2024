@@ -1,6 +1,6 @@
 import os
 from kivy.app import App
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from kivy.uix.button import Button
 from kivy.uix.label import Label
@@ -8,31 +8,25 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.screenmanager import SlideTransition
 
 
-class MyOutfitScreen(Screen):
+class SecondView(Screen):
     def __init__(self, **kwargs):
-        super(MyOutfitScreen, self).__init__(**kwargs)
-        self.name = "MyOutfit"
-
-        # Example: Set spacing and padding for the GridLayout
-        layout = GridLayout(cols=1, spacing=10, padding=(10, 10), row_force_default=True, row_default_height=100)
-
+        super(SecondView, self).__init__(**kwargs)
+        self.name = "new_view"
+        layout = BoxLayout(orientation="vertical")
         self.label = Label(text="This is the second view")
         layout.add_widget(self.label)
 
         # Create a button that switches back to the main screen
-        button = Button(text="My Outfit", valign='top')
-        button.bind(on_release=lambda x: self.change_screen("MyOutfit"))
+        button = Button(text="Go back")
+        button.bind(on_release=lambda x: self.change_screen("main"))
         layout.add_widget(button)
         self.add_widget(layout)
 
     def change_screen(self, screen_name):
-        if screen_name == "MyOutfit":
-            # Set the transition
-            self.manager.transition = SlideTransition(direction='right')
-            self.manager.current = screen_name
-        else:
-            # Handle the case when switching to the last screen
-            App.get_running_app().stop()
+        # Set the transition
+        self.manager.transition = SlideTransition(direction='right')
+        self.manager.current = screen_name
+
 
 class ImageRowApp(App):
     def build(self):
@@ -40,16 +34,11 @@ class ImageRowApp(App):
         sm = ScreenManager()
         self.manager = sm
 
-        # Create a GridLayout
-        layout = GridLayout(cols=1, spacing=10, padding=(10, 10), row_force_default=True, row_default_height=100)
+        # Create a horizontal box layout
+        layout = BoxLayout(orientation="vertical")
 
         # Specify the folder containing images
-        image_folder = "C:/Users/michael.chilton/Downloads/KivyTest/KivyTest/images"
-
-        # Create a button that switches to the new screen
-        button = Button(text="My Outfit", valign='top')
-        button.bind(on_release=lambda x: self.change_screen(sm, "MyOutfitScreen"))
-        layout.add_widget(button)
+        image_folder = "C:/Users/michael.chilton/Downloads/KivyTest/KivyTest/images"  # hard coded absolute path for testing purposes
 
         # Get a list of all files in the specified folder
         image_files = [
@@ -63,7 +52,10 @@ class ImageRowApp(App):
             img = Image(source=os.path.join(image_folder, image_file))
             layout.add_widget(img)
 
-
+        # Create a button that switches to the new screen
+        button = Button(text="Go to new view")
+        button.bind(on_release=lambda x: self.change_screen(sm, "new_view"))
+        layout.add_widget(button)
 
         # Create the main screen and add the layout to it
         main_screen = Screen(name="main")
@@ -71,7 +63,7 @@ class ImageRowApp(App):
         sm.add_widget(main_screen)
 
         # Create a new view screen
-        new_view_screen = MyOutfitScreen()
+        new_view_screen = SecondView()
         sm.add_widget(new_view_screen)
 
         return sm
