@@ -9,8 +9,9 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.screenmanager import SlideTransition
 
 class AddApparelView(Screen):
-    def __init__(self, **kwargs):
+    def __init__(self, screen_manager, **kwargs):
         super(AddApparelView, self).__init__(**kwargs)
+        self.screen_manager = screen_manager
         # create a dropdown with 10 buttons
 
         dropdown = DropDown()
@@ -41,4 +42,3 @@ class AddApparelView(Screen):
         # one last thing, listen for the selection in the dropdown list and
         # assign the data to the button text.
         dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
-
