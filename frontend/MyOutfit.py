@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import os
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
@@ -79,4 +77,3 @@ class ImageRowApp(App):
 
 if __name__ == "__main__":
     ImageRowApp().run()
->>>>>>> Stashed changes
