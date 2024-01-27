@@ -7,7 +7,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.screenmanager import SlideTransition
 
-
+# thanks git for working
 class SecondView(Screen):
     def __init__(self, screen_manager, **kwargs):
         super(SecondView, self).__init__(**kwargs)
