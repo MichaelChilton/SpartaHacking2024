@@ -11,11 +11,7 @@ class MainApp(App):
         sm = ScreenManager()
 
         sm.add_widget(cameraView(name='cameraView'))
-        sm.add_widget(MyClosetView(name='my_closet'))
-
-        sm.add_widget(MyClosetView(screen_manager=sm, name='my_closet'))
-        sm.add_widget(SecondView(screen_manager=sm, name='new_view'))
-
+        
         # to add new screen, add it here like the MyClosetView above
         return sm
 
