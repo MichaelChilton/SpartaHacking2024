@@ -1,28 +1,33 @@
-from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
-from kivy.uix.camera import Camera
+import cv2
 
+def main():
+    # Open the default camera (usually the webcam)
+    cap = cv2.VideoCapture(1)
 
-class CameraApp(App):
-    def build(self):
-        self.layout = BoxLayout(orientation='vertical')
+    # Check if the camera opened successfully
+    if not cap.isOpened():
+        print("Error: Could not open camera.")
+        return
 
-        # Create a camera object
-        self.camera = Camera(play=True, resolution=(640, 480))
-        self.layout.add_widget(self.camera)
+    while True:
+        # Capture frame-by-frame
+        ret, frame = cap.read()
 
-        # Create a button to capture the image
-        self.capture_button = Button(text='Capture', size_hint=(None, None), size=(100, 50))
-        self.capture_button.bind(on_press=self.capture)
-        self.layout.add_widget(self.capture_button)
+        # If frame is read correctly ret is True
+        if not ret:
+            print("Error: Could not read frame.")
+            break
 
-        return self.layout
+        # Display the captured frame
+        cv2.imshow('balls', frame)
 
-    def capture(self, instance):
-        # Capture the image from the camera
-        self.camera.export_to_png('cool_guy_kivy.png')  # Save the image as 'cool_guy_kivy.png'
+        # Wait for 'q' key to exit
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
+    # Release the camera and close all OpenCV windows
+    cap.release()
+    cv2.destroyAllWindows()
 
-if __name__ == '__main__':
-    CameraApp().run()
+if __name__ == "__main__":
+    main()
