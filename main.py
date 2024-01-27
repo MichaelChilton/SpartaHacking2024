@@ -8,7 +8,7 @@ from frontend.AddApparelView import AddApparelView
 class MainApp(App):
     def build(self):
         sm = ScreenManager()
-        sm.add_widget(AddApparelView(name='Apparel'))
+        sm.add_widget(AddApparelView(screen_manager=sm, name='Apparel'))
         # to add new screen, add it here like the MyClosetView above
         return sm
 

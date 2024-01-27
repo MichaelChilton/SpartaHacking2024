@@ -42,3 +42,5 @@ class AddApparelView(Screen):
         # one last thing, listen for the selection in the dropdown list and
         # assign the data to the button text.
         dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
+
+        self.add_widget(dropdown)
