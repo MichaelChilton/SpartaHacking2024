@@ -8,7 +8,21 @@ from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
 
+# Custom class for the close button
+class CloseButton(BoxLayout):
+    def __init__(self, **kwargs):
+        super(CloseButton, self).__init__(orientation='horizontal', size_hint=(None, None), size=(100, 50),
+                                          pos=(Window.width - 100, Window.height - 50), **kwargs)
 
+        # Create a close button and add it to the layout
+        close_button = Button(text='X', on_release=self.close_app, size_hint=(None, None), size=(50, 50))
+        self.add_widget(close_button)
+
+    def close_app(self, *args):
+        # Close the application when the close button is pressed
+        App.get_running_app().stop()
+
+# Main screen of the application
 class MainScreen(Screen):
     def __init__(self, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
@@ -18,7 +32,7 @@ class MainScreen(Screen):
         self.background_color = (0.8, 0.8, 0.8, 1)
 
         # Create a GridLayout
-        layout = GridLayout(cols=1, spacing=10, padding=(10, 10), row_force_default=True, row_default_height=100)
+        layout = GridLayout(cols=1, spacing=10, padding=(10, 10), row_force_default=True, row_default_height=50)
 
         # Specify the folder containing images
         image_folder = "C:/Users/michael.chilton/Downloads/KivyTest/KivyTest/images"
@@ -42,11 +56,12 @@ class MainScreen(Screen):
 
         self.add_widget(layout)
 
+    # Method that changes the screen when the button is pressed
     def change_screen(self, screen_name):
         self.manager.transition = SlideTransition(direction='left')
         self.manager.current = screen_name
 
-
+# Screen that displays a label, buttons, and images
 class MyOutfitScreen(Screen):
     def __init__(self, **kwargs):
         super(MyOutfitScreen, self).__init__(**kwargs)
@@ -56,7 +71,7 @@ class MyOutfitScreen(Screen):
         self.background_color = (0.8, 0.8, 0.8, 1)
 
         # Example: Set spacing and padding for the GridLayout
-        layout = GridLayout(cols=1, spacing=10, padding=(10, 10), row_force_default=True, row_default_height=100)
+        layout = GridLayout(cols=2, spacing=10, padding=(10, 10), row_force_default=True, row_default_height=50)
 
         self.label = Label(text="This is the second view")
         layout.add_widget(self.label)
@@ -65,27 +80,39 @@ class MyOutfitScreen(Screen):
         button = Button(text="My Outfit", valign='top', size_hint_y=None, height=50)
         button.bind(on_release=lambda x: self.change_screen("main"))
         layout.add_widget(button)
+
+        # Create a close button
+        close_button = CloseButton()
+        layout.add_widget(close_button)
+
         self.add_widget(layout)
 
+        # Specify the folder containing images
+        self.image_folder = "C:/Users/michael.chilton/Downloads/KivyTest/KivyTest/images"
+        self.image_files = [
+            f
+            for f in os.listdir(self.image_folder)
+            if os.path.isfile(os.path.join(self.image_folder, f))
+        ]
+
+        # Display the first three images
+        for i in range(3):
+            self.display_next_image()
+
+    # Method that changes the screen when the button is pressed
     def change_screen(self, screen_name):
         self.manager.transition = SlideTransition(direction='right')
         self.manager.current = screen_name
 
+    # Method that displays the next image
+    def display_next_image(self):
+        if self.image_files:
+            image_file = self.image_files.pop(0)
+            img = Image(source=os.path.join(self.image_folder, image_file))
+            self.add_widget(img)
 
-class CloseButton(BoxLayout):
-    def __init__(self, **kwargs):
-        super(CloseButton, self).__init__(orientation='horizontal', size_hint=(None, None), size=(50, 50),
-                                          pos=(0, Window.height - 50), **kwargs)
-
-        # Create a close button and add it to the layout
-        close_button = Button(text='X', on_release=self.close_app, size_hint=(None, None), size=(50, 50))
-        self.add_widget(close_button)
-
-    def close_app(self, *args):
-        App.get_running_app().stop()
-
-
-class CloseButtonApp(App):
+# Main application class
+class MyApp(App):
     def build(self):
         # Create a screen manager
         sm = ScreenManager()
@@ -98,16 +125,12 @@ class CloseButtonApp(App):
         my_outfit_screen = MyOutfitScreen()
         sm.add_widget(my_outfit_screen)
 
-        # Create a close button and add it to the main screen
-        close_button = CloseButton()
-        main_screen.add_widget(close_button)
-
         return sm
 
+    # Method to handle the request to close the application
     def on_request_close(self, *args):
-        # Return False to prevent immediate closing
+        # Prevent the application from immediately closing when the close button is pressed
         return False
 
-
 if __name__ == "__main__":
-    CloseButtonApp().run()
+    MyApp().run()
