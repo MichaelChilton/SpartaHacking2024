@@ -28,11 +28,11 @@ class SecondView(Screen):
         self.manager.current = screen_name
 
 
-class ImageRowApp(App):
-    def build(self):
-        # Create a screen manager
-        sm = ScreenManager()
-        self.manager = sm
+class ImageRowApp(Screen):
+    def build(self, screen_manager):
+
+        # passes a reference to an already created screen manager
+        self.screen_manager = screen_manager
 
         # Create a horizontal box layout
         layout = BoxLayout(orientation="vertical")
