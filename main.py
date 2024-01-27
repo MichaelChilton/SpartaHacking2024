@@ -9,7 +9,7 @@ class MainApp(App):
     def build(self):
         sm = ScreenManager()
         sm.add_widget(MyClosetView(screen_manager=sm, name='my_closet'))
-        sm.add_widget(SecondView(screen_manager=sm, name='new_view'))
+        # sm.add_widget(SecondView(screen_manager=sm, name='new_view'))
         # to add new screen, add it here like the MyClosetView above
         return sm
 
