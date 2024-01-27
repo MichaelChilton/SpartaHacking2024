@@ -11,10 +11,13 @@ from kivy.uix.screenmanager import SlideTransition
 class SecondView(Screen):
     def __init__(self, **kwargs):
         super(SecondView, self).__init__(**kwargs)
-        self.name = "new_view"
-        layout = BoxLayout(orientation="vertical")
+        self.name = "MyOutfit"
+        # Example: Set spacing and padding for the BoxLayout
+        layout = BoxLayout(orientation="vertical", spacing=10, padding=(10, 10))
+
         self.label = Label(text="This is the second view")
         layout.add_widget(self.label)
+
 
         # Create a button that switches back to the main screen
         button = Button(text="Go back")
@@ -35,7 +38,7 @@ class ImageRowApp(App):
         self.manager = sm
 
         # Create a horizontal box layout
-        layout = BoxLayout(orientation="vertical")
+        layout = BoxLayout(orientation="vertical", spacing=10, padding=(10, 10))
 
         # Specify the folder containing images
         image_folder = "C:/Users/michael.chilton/Downloads/KivyTest/KivyTest/images"  # hard coded absolute path for testing purposes
@@ -53,7 +56,7 @@ class ImageRowApp(App):
             layout.add_widget(img)
 
         # Create a button that switches to the new screen
-        button = Button(text="Go to new view")
+        button = Button(text="My Outfit")
         button.bind(on_release=lambda x: self.change_screen(sm, "new_view"))
         layout.add_widget(button)
 
