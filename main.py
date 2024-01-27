@@ -1,62 +1,53 @@
 import os
 from kivy.app import App
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from kivy.uix.button import Button
 from kivy.uix.label import Label
-from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
-from kivy.uix.boxlayout import BoxLayout
-from kivy.core.window import Window
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import SlideTransition
 
 
-class MyOutfitScreen(Screen):
+class SecondView(Screen):
     def __init__(self, **kwargs):
-        super(MyOutfitScreen, self).__init__(**kwargs)
-        self.name = "MyOutfit"
+        super(SecondView, self).__init__(**kwargs)
+        # Set the name of the screen
+        self.name = "new_view"
 
-        # Set background color
-        self.background_color = (0.8, 0.8, 0.8, 1)
+        # Create a vertical box layout for the second view
+        layout = BoxLayout(orientation="vertical")
 
-        # Example: Set spacing and padding for the GridLayout
-        layout = GridLayout(cols=2, spacing=10, padding=(10, 10), row_force_default=True, row_default_height=50)
-
+        # Create a label for the second view
         self.label = Label(text="This is the second view")
         layout.add_widget(self.label)
 
         # Create a button that switches back to the main screen
-        button = Button(text="My Outfit", valign='top', size_hint_y=None, height=50)
+        button = Button(text="Go back")
         button.bind(on_release=lambda x: self.change_screen("main"))
         layout.add_widget(button)
 
-        # Create a close button
-        close_button = CloseButton()
-        layout.add_widget(close_button)
-
+        # Add the layout to the screen
         self.add_widget(layout)
 
     def change_screen(self, screen_name):
+        # Set the transition animation to slide to the right
         self.manager.transition = SlideTransition(direction='right')
+        # Switch to the specified screen
         self.manager.current = screen_name
 
 
-class MainScreen(Screen):
-    def __init__(self, **kwargs):
-        super(MainScreen, self).__init__(**kwargs)
-        self.name = "main"
+class ImageRowApp(App):
+    def build(self):
+        # Create a screen manager to manage different screens
+        sm = ScreenManager()
+        # Assign the screen manager to the app for easy access
+        self.manager = sm
 
-        # Set background color
-        self.background_color = (0.8, 0.8, 0.8, 1)
-
-        # Create a GridLayout
-        layout = GridLayout(cols=1, spacing=10, padding=(10, 10), row_force_default=True, row_default_height=50)
+        # Create a vertical box layout for the main screen
+        layout = BoxLayout(orientation="vertical")
 
         # Specify the folder containing images
-        image_folder = "C:/Users/michael.chilton/Downloads/KivyTest/KivyTest/images"
-
-        # Create a button that switches to the new screen
-        button = Button(text="My Outfit", valign='top', size_hint_y=None, height=50)
-        button.bind(on_release=lambda x: self.change_screen("MyOutfitScreen"))
-        layout.add_widget(button)
+        image_folder = "C:/Users/michael.chilton/Downloads/KivyTest/KivyTest/images"  # hard-coded absolute path for testing purposes
 
         # Get a list of all files in the specified folder
         image_files = [
@@ -70,45 +61,30 @@ class MainScreen(Screen):
             img = Image(source=os.path.join(image_folder, image_file))
             layout.add_widget(img)
 
-        self.add_widget(layout)
+        # Create a button that switches to the new view
+        button = Button(text="Go to new view")
+        button.bind(on_release=lambda x: self.change_screen(sm, "new_view"))
+        layout.add_widget(button)
 
-    def change_screen(self, screen_name):
-        self.manager.transition = SlideTransition(direction='left')
-        self.manager.current = screen_name
-
-
-class CloseButton(BoxLayout):
-    def __init__(self, **kwargs):
-        super(CloseButton, self).__init__(orientation='horizontal', size_hint=(None, None), size=(100, 50),
-                                          pos=(Window.width - 100, Window.height - 50), **kwargs)
-
-        # Create a close button and add it to the layout
-        close_button = Button(text='X', on_release=self.close_app, size_hint=(None, None), size=(50, 50))
-        self.add_widget(close_button)
-
-    def close_app(self, *args):
-        App.get_running_app().stop()
-
-
-class MyApp(App):
-    def build(self):
-        # Create a screen manager
-        sm = ScreenManager()
-
-        # Create the main screen and add it to the screen manager
-        main_screen = MainScreen()
+        # Create the main screen and add the layout to it
+        main_screen = Screen(name="main")
+        main_screen.add_widget(layout)
         sm.add_widget(main_screen)
 
-        # Create the MyOutfit screen and add it to the screen manager
-        my_outfit_screen = MyOutfitScreen()
-        sm.add_widget(my_outfit_screen)
+        # Create a new view screen
+        new_view_screen = SecondView()
+        sm.add_widget(new_view_screen)
 
+        # Return the screen manager as the root widget of the app
         return sm
 
-    def on_request_close(self, *args):
-        # Return False to prevent immediate closing
-        return False
+    def change_screen(self, screen_manager, screen_name):
+        # Set the transition animation to slide to the left
+        self.manager.transition = SlideTransition(direction='left')
+        # Switch to the specified screen
+        screen_manager.current = screen_name
 
 
 if __name__ == "__main__":
-    MyApp().run()
+    # Run the Kivy application
+    ImageRowApp().run()
