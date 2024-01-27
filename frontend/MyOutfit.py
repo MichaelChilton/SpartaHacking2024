@@ -8,6 +8,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.screenmanager import SlideTransition
 
 
+
 class SecondView(Screen):
     def __init__(self, **kwargs):
         super(SecondView, self).__init__(**kwargs)
@@ -29,10 +30,10 @@ class SecondView(Screen):
 
 
 class ImageRowApp(Screen):
-    def build(self, screen_manager):
+    def build(self, sm):
 
         # passes a reference to an already created screen manager
-        self.screen_manager = screen_manager
+        self.sm = sm
 
         # Create a horizontal box layout
         layout = BoxLayout(orientation="vertical")
