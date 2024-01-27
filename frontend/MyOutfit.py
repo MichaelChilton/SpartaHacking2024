@@ -1,13 +1,13 @@
+import os
+from kivy.uix.behaviors import DragBehavior
 import kivy
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
-import os
 from kivy.uix.image import Image
 
 
-# Class Works do not change
 class MyOutFit(Screen):
     def __init__(self, screen_manager, **kwargs):
         super(MyOutFit, self).__init__(**kwargs)
