@@ -3,6 +3,13 @@ from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
 
+
+#This Calls from another UI
+
+
+#From Another UI
+
+
 class MyClosetView(Screen):
     def __init__(self, **kwargs):
         super(MyClosetView, self).__init__(**kwargs)
