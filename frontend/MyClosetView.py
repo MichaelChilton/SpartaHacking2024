@@ -1,9 +1,13 @@
+import os
 import kivy
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.dropdown import DropDown
 from kivy.core.window import Window
+from kivy.uix.image import Image
+from kivy.uix.gridlayout import GridLayout
+
 
 class MyClosetView(Screen):
     def __init__(self, screen_manager, **kwargs):
@@ -27,9 +31,22 @@ class MyClosetView(Screen):
         
         self.add_widget(main_button)
         
+        # Create a grid layout for the images
+        grid_layout = GridLayout(cols=3, spacing=0)
         
+        # TODO: Replace 'path_to_images' with logic to get from whatever objects have the images
+        path_to_images = 'images/'
         
+        # Load images dynamically from the given path
+        for image_file in os.listdir(path_to_images):
+            if image_file.endswith('.jpg'):
+                image = Image(source=f'{path_to_images}/{image_file}')
+                grid_layout.add_widget(image)
 
+        self.add_widget(grid_layout)
+    
+    
+    
     def on_button_press(self, instance):
         instance.text = 'going to new screen'
         self.screen_manager.current = 'new_view'
