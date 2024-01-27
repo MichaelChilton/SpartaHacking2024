@@ -8,12 +8,16 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.screenmanager import SlideTransition
 
 
-
 class SecondView(Screen):
     def __init__(self, **kwargs):
         super(SecondView, self).__init__(**kwargs)
+        # Set the name of the screen
         self.name = "new_view"
+
+        # Create a vertical box layout for the second view
         layout = BoxLayout(orientation="vertical")
+
+        # Create a label for the second view
         self.label = Label(text="This is the second view")
         layout.add_widget(self.label)
 
@@ -21,25 +25,29 @@ class SecondView(Screen):
         button = Button(text="Go back")
         button.bind(on_release=lambda x: self.change_screen("main"))
         layout.add_widget(button)
+
+        # Add the layout to the screen
         self.add_widget(layout)
 
     def change_screen(self, screen_name):
-        # Set the transition
+        # Set the transition animation to slide to the right
         self.manager.transition = SlideTransition(direction='right')
+        # Switch to the specified screen
         self.manager.current = screen_name
 
 
-class ImageRowApp(Screen):
-    def build(self, sm):
+class ImageRowApp(App):
+    def build(self):
+        # Create a screen manager to manage different screens
+        sm = ScreenManager()
+        # Assign the screen manager to the app for easy access
+        self.manager = sm
 
-        # passes a reference to an already created screen manager
-        self.sm = sm
-
-        # Create a horizontal box layout
+        # Create a vertical box layout for the main screen
         layout = BoxLayout(orientation="vertical")
 
         # Specify the folder containing images
-        image_folder = "C:/Users/michael.chilton/Downloads/KivyTest/KivyTest/images"  # hard coded absolute path for testing purposes
+        image_folder = "C:/Users/michael.chilton/Downloads/KivyTest/KivyTest/images"  # hard-coded absolute path for testing purposes
 
         # Get a list of all files in the specified folder
         image_files = [
@@ -53,7 +61,7 @@ class ImageRowApp(Screen):
             img = Image(source=os.path.join(image_folder, image_file))
             layout.add_widget(img)
 
-        # Create a button that switches to the new screen
+        # Create a button that switches to the new view
         button = Button(text="Go to new view")
         button.bind(on_release=lambda x: self.change_screen(sm, "new_view"))
         layout.add_widget(button)
@@ -67,12 +75,16 @@ class ImageRowApp(Screen):
         new_view_screen = SecondView()
         sm.add_widget(new_view_screen)
 
+        # Return the screen manager as the root widget of the app
         return sm
 
     def change_screen(self, screen_manager, screen_name):
+        # Set the transition animation to slide to the left
         self.manager.transition = SlideTransition(direction='left')
+        # Switch to the specified screen
         screen_manager.current = screen_name
 
 
 if __name__ == "__main__":
+    # Run the Kivy application
     ImageRowApp().run()
