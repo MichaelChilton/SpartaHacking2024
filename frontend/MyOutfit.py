@@ -10,6 +10,7 @@ from kivy.uix.button import Button
 from kivy.graphics import Color, Ellipse
 
 
+
 class MyOutfit(Screen):
     def __init__(self, screen_manager, **kwargs):
         super(MyOutfit, self).__init__(**kwargs)
