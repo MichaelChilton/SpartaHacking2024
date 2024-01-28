@@ -3,6 +3,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from frontend.MyClosetView import MyClosetView
 # to add new screen, import it here like the MyClosetView above
 from frontend.MyOutfit import MyOutFit
+from frontend.DragPicture import DragLabel
+from frontend.DragPicture import DragPictureApp
 
 
 class MainApp(App):
@@ -11,6 +13,7 @@ class MainApp(App):
 
         sm.add_widget(MyOutFit(screen_manager=sm, name='my_closet'))
         # to add new screen, add it here like the MyClosetView above
+        # sm.add_widget(DragLabel())
         return sm
 
 if __name__ == '__main__':

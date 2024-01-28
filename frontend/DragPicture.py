@@ -1,18 +1,19 @@
+# DragPicture.py
+
 from kivy.uix.image import Image
-from kivy.app import App
 from kivy.uix.behaviors import DragBehavior
 from kivy.lang import Builder
+from kivy.uix.floatlayout import FloatLayout
+from kivy.app import App
+import os
 
-kv = '''
-<DragLabel>:
-    drag_rectangle: self.x, self.y, self.width, self.height
-    drag_timeout: 10000000
-    drag_distance: 0
+# Get the current directory of the script
 
-FloatLayout:
+kv = f'''
+<MyLayout>:
     DragLabel:
         size_hint: 0.25, 0.2
-        source: "C:/Users/michael.chilton/Downloads/KivyTest/KivyTest/images/image1.jpg"
+        source: "C:/Users/michael.chilton/Downloads/KivyTest/KivyTest/images/image.jpg"
         z: 1
 '''
 
@@ -26,9 +27,15 @@ class DragLabel(DragBehavior, Image):
             self.x = touch.x - self.width / 2
             self.y = touch.y - self.height / 2
 
-class TestApp(App):
-    def build(self):
-        layout = Builder.load_string(kv)
-        return layout
+class MyLayout(FloatLayout):
+    pass
 
-TestApp().run()
+class DragPictureApp(App):
+    def build(self):
+        return MyLayout()
+
+if __name__ == '__main__':
+    try:
+        DragPictureApp().run()
+    except Exception as e:
+        print(f"An error occurred: {e}")
