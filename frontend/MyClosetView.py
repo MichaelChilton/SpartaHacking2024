@@ -50,7 +50,7 @@ class MyClosetView(Screen):
 
         # Set default height for rows
         grid_layout.row_force_default = True
-        grid_layout.row_default_height = Window.width  # Set the desired height to fill the screen
+        grid_layout.row_default_height = 640  # Set the desired height to fill the screen
 
         # Add the grid layout to the scroll view
         scroll_view.add_widget(grid_layout)
