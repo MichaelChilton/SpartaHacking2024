@@ -4,7 +4,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.button import Button
 from kivy.uix.camera import Camera
-
+from rembg import remove
 class camView(Screen):
     def __init__(self, screen_manager, **kwargs):
         super(camView, self).__init__(**kwargs)
@@ -26,3 +26,12 @@ class camView(Screen):
         # Capture the image from the camera
         self.camera.export_to_png('cool_guy_kivy.png')  # Save the image as 'cool_guy_kivy.png'
 
+    def remove_background(self):
+        input_path = '../cool_guy_kivy.png'
+        output_path = 'output.png'
+        with open(input_path, 'rb') as i:
+            with open(output_path, 'wb') as o:
+                input = i.read()
+                output = remove(input)
+                o.write(output)
+        print("background removed")
