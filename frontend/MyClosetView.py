@@ -35,12 +35,13 @@ class MyClosetView(Screen):
         grid_layout = GridLayout(cols=1, spacing=0)
         
         # TODO: Replace 'path_to_images' with logic to get from whatever objects have the images
-        path_to_images = 'images/'
+        path_to_images = 'D:\GitHub_Repos\SpartaHack_2024\SpartaHacking2024\images'
         
         # Load images dynamically from the given path
         # grid_layout.bind(minimum_height=grid_layout.setter('height'))
         grid_layout.add_widget(main_button)
         for image_file in os.listdir(path_to_images):
+<<<<<<< Updated upstream
             image = Image(source=f'{path_to_images}/{image_file}', size=(128, 128))
             grid_layout.add_widget(image)
 
@@ -50,7 +51,21 @@ class MyClosetView(Screen):
         # self.add_widget(main_button)
         scroll_view.add_widget(grid_layout)
         self.add_widget(scroll_view)
-    
+=======
+            if image_file.endswith('.jpg'):
+                image = Image(source=f'{path_to_images}\\{image_file}')
+                grid_layout.add_widget(image)
+
+        # Set default height for rows
+        grid_layout.row_force_default = True
+        grid_layout.row_default_height = 50  # Set the desired height in pixels
+
+        # Set default width for columns
+        grid_layout.col_force_default = True
+        grid_layout.col_default_width = 100  # Set the desired width in pixels
+
+        self.add_widget(grid_layout)
+>>>>>>> Stashed changes
     
     
     def on_button_press(self, instance):
