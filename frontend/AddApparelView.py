@@ -11,7 +11,7 @@ from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.camera import Camera
 from rembg import remove
-
+import os
 class AddApparelView(Screen):
     #===========INITIALIZATION======================================
     
@@ -21,6 +21,9 @@ class AddApparelView(Screen):
 
         # Static Variables
         button_height = 44
+        
+        #======= PUBLIC VARIABLES =====================================
+        chosen_category = None
         
         #======= CAMERA ===============================================
         # Create a camera object
@@ -35,7 +38,8 @@ class AddApparelView(Screen):
                     input = i.read()
                     output = remove(input)
                     o.write(output)
-       
+        
+        
         #========== DROPDOWN MENU ==============================
 
         # Create a list of options
@@ -57,6 +61,7 @@ class AddApparelView(Screen):
         # Modify the on_select callback to print a message based on the selected option
         def on_select_callback(instance, value):
             mainbutton.text=value
+            chosen_category = value
             # You can perform additional actions based on the selected value here
 
         dropdown.bind(on_select=on_select_callback)
@@ -67,15 +72,21 @@ class AddApparelView(Screen):
 
         #======= CONFIRM BUTTON =======================================
         btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .4, 'y': 0.05})
-        btn_confirm.bind(on_press=self.onCameraClick)
+        def PlaceInfolder(self):
+            os.rename('images/selfie.png', mainbutton.text + '/' +  'coolboi.png')
+            
+        btn_confirm.bind(on_press=PlaceInfolder)
+        
+       #======= TAKE PHOTO BUTTON ====================================
+        btn_take_photo = Button(text="Take Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .5, 'y': .5})
+        btn_take_photo.bind(on_press=self.onCameraClick)
 
         #====== ADD WIDGETS ===========================================
         self.add_widget(mainbutton)
         self.add_widget(btn_upload)
         self.add_widget(btn_confirm)
         self.add_widget(self.camera)
-
+        self.add_widget(btn_take_photo)
     def onCameraClick(self, instance):
-        print("Picture Taken!")
-        # Export as png
-        self.camera.export_to_png('selfie.png')
+        self.camera.export_to_png('images/selfie.png')
+
