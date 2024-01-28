@@ -51,7 +51,7 @@ class MyOutfit(Screen):
         Legs = Button(text='Legs', size_hint_x=0.2, size_hint_y=0.2, width=1)
         Legs.pos = (self.center_x + Legs.width * 350, self.center_y + Legs.height / 1.3)
         Legs.bind(on_press=self.on_button_press)
-        self.add_widget(Legs)
+        self.add_widget(Legs) 
 
     def on_button_press(self, instance):
         instance.text = 'going to new screen'
