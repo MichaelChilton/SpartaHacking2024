@@ -107,7 +107,7 @@ class AddApparelView(Screen):
         btn_confirm.bind(on_press=PlaceInfolder)
         
        #======= TAKE PHOTO BUTTON ====================================
-        btn_take_photo = Button(text="Take Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2)
+        btn_take_photo = Button(text="Take Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=size_standard)
         btn_take_photo.bind(on_press=self.onCameraClick)
 
         #====== ADD WIDGETS ===========================================
