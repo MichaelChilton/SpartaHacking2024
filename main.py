@@ -3,6 +3,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from frontend.MyClosetView import MyClosetView
 # to add new screen, import it here like the MyClosetView above
 from frontend.MyOutfit import SecondView
+from frontend.AddApparelView import AddApparelView
 
 
 class MainApp(App):
