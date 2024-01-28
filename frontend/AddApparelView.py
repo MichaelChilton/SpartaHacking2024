@@ -24,19 +24,20 @@ class AddApparelView(Screen):
         self.screen_manager = screen_manager
 
         # Static Variables
-        button_height = 44
-        
-        #======= PUBLIC VARIABLES =====================================
-        chosen_category = None
+        button_height = 60
+        size_standard = .5
+       
         
         #======= CAMERA ===============================================
         # Create a camera object
-        self.camera = Camera(play=True, resolution=(640, 480))
-        
-        #====== METHODS ===============================================
-        
-        
+        self.camera = Camera(play=True, index=2,resolution=(640, 480))
 
+
+        #====== LOOKNICE ===============================================
+        
+        horizontal_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
+
+        
        
         
         #========== DROPDOWN MENU ==============================
@@ -68,10 +69,10 @@ class AddApparelView(Screen):
 
         #======= IMPORT BUTTON ========================================
 
-        btn_upload = Button(text="Upload Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .7, 'y': .2}) 
+        btn_upload = Button(text="Upload Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=size_standard)
 
         #======= CONFIRM BUTTON =======================================
-        btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .4, 'y': 0.05})
+        btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=size_standard)
         
         def remove_background():
             input_path = 'images/selfie.png'
@@ -106,15 +107,21 @@ class AddApparelView(Screen):
         btn_confirm.bind(on_press=PlaceInfolder)
         
        #======= TAKE PHOTO BUTTON ====================================
-        btn_take_photo = Button(text="Take Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .5, 'y': .5})
+        btn_take_photo = Button(text="Take Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2)
         btn_take_photo.bind(on_press=self.onCameraClick)
 
         #====== ADD WIDGETS ===========================================
+   
+        horizontal_layout.add_widget(btn_upload)
+        horizontal_layout.add_widget(btn_take_photo)
+        horizontal_layout.add_widget(btn_confirm)
+        
+        
+        
+        horizontal_layout.pos_hint = {'bottom': 4}
+        self.add_widget(horizontal_layout)
         self.add_widget(mainbutton)
-        self.add_widget(btn_upload)
-        self.add_widget(btn_confirm)
         self.add_widget(self.camera)
-        self.add_widget(btn_take_photo)
     def onCameraClick(self, instance):
         self.camera.export_to_png('images/selfie.png')
 
