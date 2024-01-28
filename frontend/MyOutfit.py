@@ -28,12 +28,12 @@ class MyOutfit(Screen):
         btn1.bind(on_press=self.on_Closet_UI)
 
         # Create the second button with the text 'Click me'
-        btn2 = Button(text='Add Apparel', size_hint_x=1, width=1)
-        btn2.bind(on_press=self.on_add_apparel_UI)
+        btn2 = Button(text='MyApparel', size_hint_x=1, width=1)
+        btn2.bind(on_press=self.on_Apparel_View)
 
         # Create the third button with the text 'Click me'
-        btn3 = Button(text='My Outfit', size_hint_x=1, width=1)
-        btn3.bind(on_press=self.on_outfit_UI)
+        btn3 = Button(text='MyOutfit', size_hint_x=1, width=1)
+        btn3.bind(on_press=self.on_OutFit_UI)
 
         # Add all three buttons to the horizontal layout
         horizontal_layout.add_widget(btn1)
@@ -49,19 +49,19 @@ class MyOutfit(Screen):
         # For Head of person
         Head = Button(text='Head', size_hint=(0.2, 0.2))  # Set size_hint directly
         Head.pos_hint = {'center_x': 0.5, 'center_y': .79}  # Center the button
-        Head.bind(on_press=self.on_button_press)
+        Head.bind(on_press=self.on_Closet_UI)
         self.add_widget(Head)
 
         # For Torso of person
         Torso = Button(text='Torso', size_hint_x=0.2, size_hint_y=0.2, width=1)
         Torso.pos_hint = {'center_x': 0.5, 'center_y': .56}
-        Torso.bind(on_press=self.on_button_press)
+        Torso.bind(on_press=self.on_Closet_UI)
         self.add_widget(Torso)
 
         # For Legs of person
         Legs = Button(text='Legs', size_hint_x=0.2, size_hint_y=0.2, width=1)
         Legs.pos_hint = {'center_x': 0.5, 'center_y': .33}
-        Legs.bind(on_press=self.on_button_press)
+        Legs.bind(on_press=self.on_Closet_UI)
         self.add_widget(Legs)
 
     # Buttons ------------------------------------------
@@ -69,10 +69,16 @@ class MyOutfit(Screen):
 
         self.screen_manager.current = 'MyCloset'
 
+    def on_OutFit_UI(self, instance):
+        instance.text = "This Is the Outfit UI"
+        self.screen_manager.current = 'MyOutfit'
+
+    def on_Apparel_View(self, instance):
+        self.screen_manager.current = 'MyApparel'
+
     def on_button_press(self, instance):
         instance.text = "You shouldn't see this"
         self.screen_manager.current = 'MyOutfit'
-    
 
     def on_outfit_UI(self, instance):
         self.screen_manager.current = 'MyOutfit'
