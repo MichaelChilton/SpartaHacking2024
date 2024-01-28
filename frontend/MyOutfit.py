@@ -1,86 +1,63 @@
-import os
+import kivy
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.image import Image
 from kivy.uix.button import Button
-from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.uix.screenmanager import SlideTransition
 
 
-# thanks git for working
-class SecondView(Screen):
+class MyOutfit(Screen):
     def __init__(self, screen_manager, **kwargs):
-        super(SecondView, self).__init__(**kwargs)
-        self.name = "new_view"
+        super(MyOutfit, self).__init__(**kwargs)
         self.screen_manager = screen_manager
 
+        # Create a horizontal BoxLayout for buttons at the bottom
+        horizontal_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
 
-class SecondView(Screen):
-    def __init__(self, **kwargs):
-        super(SecondView, self).__init__(**kwargs)
-        self.name = "new_view"
+        # Create the first button with the text 'Click me'
+        btn1 = Button(text='My Closet', size_hint_x=1, width=1)
+        btn1.bind(on_press=self.on_Closet_UI)
 
-        layout = BoxLayout(orientation="vertical")
-        self.label = Label(text="This is the second view")
-        layout.add_widget(self.label)
+        # Create the second button with the text 'Click me'
+        btn2 = Button(text='Click me 2', size_hint_x=1, width=1)
+        btn2.bind(on_press=self.on_button_press)
 
-        # Create a button that switches back to the main screen
-        button = Button(text="Go back")
-        button.bind(on_release=lambda x: self.change_screen("main"))
-        layout.add_widget(button)
-        self.add_widget(layout)
+        # Create the third button with the text 'Click me'
+        btn3 = Button(text='Click me 3', size_hint_x=1, width=1)
+        btn3.bind(on_press=self.on_button_press)
 
-    def change_screen(self, screen_name):
-        # Set the transition
-        self.manager.transition = SlideTransition(direction='right')
-        self.manager.current = screen_name
+        # Add all three buttons to the horizontal layout
+        horizontal_layout.add_widget(btn1)
+        horizontal_layout.add_widget(btn2)
+        horizontal_layout.add_widget(btn3)
 
+        # Set the position of the horizontal layout to the bottom
+        horizontal_layout.pos_hint = {'bottom': 1}
 
-class ImageRowApp(App):
-    def build(self):
-        # Create a screen manager
-        sm = ScreenManager()
-        self.manager = sm
+        # Add the horizontal layout to the screen
+        self.add_widget(horizontal_layout)
 
-        # Create a horizontal box layout
-        layout = BoxLayout(orientation="vertical")
+        # For Head of person
+        Head = Button(text='Head', size_hint=(0.2, 0.2))  # Set size_hint directly
+        Head.pos_hint = {'center_x': 0.5, 'center_y': .79}  # Center the button
+        Head.bind(on_press=self.on_button_press)
+        self.add_widget(Head)
 
-        # Specify the folder containing images
-        image_folder = "C:/Users/michael.chilton/Downloads/KivyTest/KivyTest/images"  # hard coded absolute path for testing purposes
+        # For Torso of person
+        Torso = Button(text='Torso', size_hint_x=0.2, size_hint_y=0.2, width=1)
+        Torso.pos_hint = {'center_x': 0.5, 'center_y': .56}
+        Torso.bind(on_press=self.on_button_press)
+        self.add_widget(Torso)
 
-        # Get a list of all files in the specified folder
-        image_files = [
-            f
-            for f in os.listdir(image_folder)
-            if os.path.isfile(os.path.join(image_folder, f))
-        ]
+        # For Legs of person
+        Legs = Button(text='Legs', size_hint_x=0.2, size_hint_y=0.2, width=1)
+        Legs.pos_hint = {'center_x': 0.5, 'center_y': .33}
+        Legs.bind(on_press=self.on_button_press)
+        self.add_widget(Legs)
 
-        # Create Image widgets for each image file and add them to the layout
-        for image_file in image_files:
-            img = Image(source=os.path.join(image_folder, image_file))
-            layout.add_widget(img)
-
-        # Create a button that switches to the new screen
-        button = Button(text="Go to new view")
-        button.bind(on_release=lambda x: self.change_screen(sm, "new_view"))
-        layout.add_widget(button)
-
-        # Create the main screen and add the layout to it
-        main_screen = Screen(name="main")
-        main_screen.add_widget(layout)
-        sm.add_widget(main_screen)
-
-        # Create a new view screen
-        new_view_screen = SecondView()
-        sm.add_widget(new_view_screen)
-
-        return sm
-
-    def change_screen(self, screen_manager, screen_name):
-        self.manager.transition = SlideTransition(direction='left')
-        screen_manager.current = screen_name
+    def on_Closet_UI(self, instance):
+        self.screen_manager.current = 'MyCloset'
 
 
-if __name__ == "__main__":
-    ImageRowApp().run()
+    def on_button_press(self, instance):
+        instance.text = "You shouldn't see this"
+        self.screen_manager.current = 'MyOutfit'
