@@ -41,17 +41,6 @@ class MyClosetView(Screen):
         # grid_layout.bind(minimum_height=grid_layout.setter('height'))
         grid_layout.add_widget(main_button)
         for image_file in os.listdir(path_to_images):
-<<<<<<< Updated upstream
-            image = Image(source=f'{path_to_images}/{image_file}', size=(128, 128))
-            grid_layout.add_widget(image)
-
-        
-        scroll_view = ScrollView(do_scroll_x=False, do_scroll_y=True)
-        
-        # self.add_widget(main_button)
-        scroll_view.add_widget(grid_layout)
-        self.add_widget(scroll_view)
-=======
             if image_file.endswith('.jpg'):
                 image = Image(source=f'{path_to_images}\\{image_file}')
                 grid_layout.add_widget(image)
@@ -65,7 +54,6 @@ class MyClosetView(Screen):
         grid_layout.col_default_width = 100  # Set the desired width in pixels
 
         self.add_widget(grid_layout)
->>>>>>> Stashed changes
     
     
     def on_button_press(self, instance):
