@@ -12,6 +12,9 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.camera import Camera
 from rembg import remove
 import os
+import cv2
+import numpy as np
+import random as rand
 class AddApparelView(Screen):
     #===========INITIALIZATION======================================
     
@@ -38,7 +41,9 @@ class AddApparelView(Screen):
                     input = i.read()
                     output = remove(input)
                     o.write(output)
-        
+                
+
+       
         
         #========== DROPDOWN MENU ==============================
 
@@ -74,10 +79,13 @@ class AddApparelView(Screen):
         #======= CONFIRM BUTTON =======================================
         btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .4, 'y': 0.05})
         def PlaceInfolder(self):
-            
-            remove_background()
-                
-            os.rename('images/selfie.png','images/'+ mainbutton.text + '/selfie.png')
+            incrament = rand.randint(0,10000)
+            if mainbutton.text == "Top":
+                os.rename('images/selfie.png', 'images/'+ mainbutton.text + f'/Top{incrament}.png')
+            elif mainbutton.text == "Pants":
+                os.rename('images/selfie.png','images/'+ mainbutton.text + f'/Pants{incrament}.png')
+            else:
+                os.rename('images/selfie.png','images/'+ mainbutton.text + f'/Shoes{incrament}.png')
             
         btn_confirm.bind(on_press=PlaceInfolder)
         
