@@ -1,4 +1,3 @@
-
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
@@ -15,25 +14,21 @@ from rembg import remove
 
 class AddApparelView(Screen):
     #===========INITIALIZATION======================================
-    def callback(instance):
-        print('The button <%s> is being pressed' % instance.text)
     
     def __init__(self, screen_manager, **kwargs):
         super(AddApparelView, self).__init__(**kwargs)
         self.screen_manager = screen_manager
-        
 
         # Static Variables
         button_height = 44
         
-        
         #======= CAMERA ===============================================
         # Create a camera object
-        camera = Camera(play=True, resolution=(640, 480))
+        self.camera = Camera(play=True, resolution=(640, 480))
         
         #====== METHODS ===============================================
         def remove_background(self):
-            input_path = '../cool_guy_kivy.png'
+            input_path = 'cool_guy_kivy.png'
             output_path = 'output.png'
             with open(input_path, 'rb') as i:
                 with open(output_path, 'wb') as o:
@@ -71,16 +66,16 @@ class AddApparelView(Screen):
         btn_upload = Button(text="Upload Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .7, 'y': .2}) 
 
         #======= CONFIRM BUTTON =======================================
-
         btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .4, 'y': 0.05})
-       
-        
-       
+        btn_confirm.bind(on_press=self.onCameraClick)
+
         #====== ADD WIDGETS ===========================================
         self.add_widget(mainbutton)
         self.add_widget(btn_upload)
         self.add_widget(btn_confirm)
-        self.add_widget(camera)
+        self.add_widget(self.camera)
 
-        #===========BUTTON FUCNTIONALITY=====================
-        
+    def onCameraClick(self, instance):
+        print("Picture Taken!")
+        # Export as png
+        self.camera.export_to_png('selfie.png')
