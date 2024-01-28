@@ -10,7 +10,7 @@ from kivy.uix.image import Image
 
 class MyOutFit(Screen):
     def __init__(self, screen_manager, **kwargs):
-        super(MyOutFit, self).__init__(**kwargs)
+        super(MyClosetView, self).__init__(**kwargs)
         self.screen_manager = screen_manager
         layout = BoxLayout(orientation="vertical")
 

@@ -27,15 +27,22 @@ class DragLabel(DragBehavior, Image):
             self.x = touch.x - self.width / 2
             self.y = touch.y - self.height / 2
 
-class MyLayout(FloatLayout):
-    pass
+# class MyLayout(FloatLayout):
+#     pass
 
-class DragPictureApp(App):
-    def build(self):
-        return MyLayout()
+# class DragPictureApp(App):
+#     def build(self):
+#         return MyLayout()
+    
+class DragPictureWidget(FloatLayout):
+    name : str
+    def __init__(self, screen_manager, **kwargs):
+        super(DragPictureWidget, self).__init__(**kwargs)
+        self.screen_manager = screen_manager
+        self.add_widget(FloatLayout())
 
-if __name__ == '__main__':
-    try:
-        DragPictureApp().run()
-    except Exception as e:
-        print(f"An error occurred: {e}")
+# if __name__ == '__main__':
+#     try:
+#         DragPictureApp().run()
+#     except Exception as e:
+#         print(f"An error occurred: {e}")
