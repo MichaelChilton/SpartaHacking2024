@@ -111,17 +111,19 @@ class AddApparelView(Screen):
         btn_take_photo.bind(on_press=self.onCameraClick)
 
         #====== ADD WIDGETS ===========================================
-   
+        self.add_widget(mainbutton)
         horizontal_layout.add_widget(btn_upload)
         horizontal_layout.add_widget(btn_take_photo)
         horizontal_layout.add_widget(btn_confirm)
         
         
         
-        horizontal_layout.pos_hint = {'bottom': 4}
+        
         self.add_widget(horizontal_layout)
-        self.add_widget(mainbutton)
+        
         self.add_widget(self.camera)
+        horizontal_layout.pos_hint = {'bottom': 4}
+        
     def onCameraClick(self, instance):
         self.camera.export_to_png('images/selfie.png')
 
