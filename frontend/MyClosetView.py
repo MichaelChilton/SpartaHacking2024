@@ -19,24 +19,6 @@ class MyClosetView(Screen):
         # Create a ScrollView
         scroll_view = ScrollView()
 
-        dropdown = DropDown(auto_width=False, width=150)
-        # TODO: make this list load dynamically from somewhere better
-        categories = ['Shirt', 'Pants', 'Shoes (raggety)']  # Replace with your own categories
-
-        for category in categories:
-            btn = Button(text=category, size_hint_y=None, height=44, width=Window.width)
-            btn.bind(on_release=lambda btn: dropdown.select(btn.text))
-            dropdown.add_widget(btn)
-
-        main_button = Button(text='Select Category', size_hint=(None, None), pos_hint={'top': 1}, width=Window.width)
-        main_button.bind(on_release=dropdown.open)
-        dropdown.bind(on_select=lambda instance, x: setattr(main_button, 'text', x))
-
-        # Adjust the position of the dropdown
-        dropdown.pos_hint = {'x': 0.5, 'y': 0.7}
-
-        dropdown.width = Window.width  # Set the width of the dropdown to the width of the screen
-
         # Create a grid layout for the images
         grid_layout = GridLayout(cols=1, spacing=0, size_hint_y=None)
         # Make sure the height is such that there is something to scroll.
@@ -49,6 +31,11 @@ class MyClosetView(Screen):
             image_file = clothing_item.get_image_path()
             image = Image(source=image_file, size=(Window.width, Window.height), allow_stretch=True)
             grid_layout.add_widget(image)
+            if screen_manager.previous() == 'MyOutfit':
+                btn = Button(text='select', size_hint_y=None, height=44, width=Window.width)
+                btn.bind(on_release=lambda btn: self.on_select(selected_clothing_item=clothing_item))
+                grid_layout.add_widget(btn)
+            
 
         # Set default height for rows
         grid_layout.row_force_default = True
@@ -64,7 +51,7 @@ class MyClosetView(Screen):
         btn1 = Button(text='My Closet', size_hint_x=1, width=1)
         btn1.bind(on_press=self.on_Closet_UI)
         # Create the second button with the text 'Click me'
-        btn2 = Button(text='Add Apperel', size_hint_x=1, width=1)
+        btn2 = Button(text='Add Apparel', size_hint_x=1, width=1)
         btn2.bind(on_press=self.on_add_apparel_UI)
 
         # Create the third button with the text 'Click me'
@@ -82,8 +69,6 @@ class MyClosetView(Screen):
         # Add the horizontal layout to the screen
         self.add_widget(horizontal_layout)
 
-
-
     def on_button_press(self, instance):
         instance.text = 'going to new screen'
         self.screen_manager.current = 'new_view'
@@ -94,3 +79,7 @@ class MyClosetView(Screen):
         self.screen_manager.current = 'MyOutfit'
     def on_add_apparel_UI(self, instance):
         self.screen_manager.current = 'AddApparelView'
+        
+    def on_select(self, instance, selected_clothing_item, **kwargs):
+        self.screen_manager.selected_clothing_item = selected_clothing_item
+        self.screen_manager.current = 'MyOutfit'

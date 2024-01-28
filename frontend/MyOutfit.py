@@ -29,7 +29,7 @@ class MyOutfit(Screen):
         btn1.bind(on_press=self.on_Closet_UI)
 
         # Create the second button with the text 'Click me'
-        btn2 = Button(text='MyApparel', size_hint_x=1, width=1)
+        btn2 = Button(text='Add Apparel', size_hint_x=1, width=1)
         btn2.bind(on_press=self.on_Apparel_View)
 
         # Create the third button with the text 'Click me'
@@ -74,7 +74,7 @@ class MyOutfit(Screen):
         self.screen_manager.current = 'MyOutfit'
 
     def on_Apparel_View(self, instance):
-        self.screen_manager.current = 'MyApparel'
+        self.screen_manager.current = 'AddApparelView'
 
     def on_button_press(self, instance):
         instance.text = "You shouldn't see this"

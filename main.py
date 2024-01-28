@@ -36,7 +36,7 @@ class MainApp(App):
 
         sm.add_widget(MyOutfit(screen_manager=sm, name='MyOutfit'))
         sm.add_widget(MyClosetView(screen_manager=sm, clothing_items=my_clothing_items, name='MyCloset'))
-        sm.add_widget(AddApparelView(screen_manager=sm, name='MyApparel'))
+        sm.add_widget(AddApparelView(screen_manager=sm, name='AddApparelView'))
         # to add new screen, add it here like the MyClosetView above
         return sm
     def get_selected_clothing_item(self):
