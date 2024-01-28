@@ -24,8 +24,7 @@ class MyClosetView(Screen):
         # Make sure the height is such that there is something to scroll.
         grid_layout.bind(minimum_height=grid_layout.setter('height'))
         grid_layout.row_default_height = 100
-        grid_layout.add_widget(dropdown)
-
+        
         # Load images dynamically from the given clothing_items list
         for clothing_item in clothing_items:
             image_file = clothing_item.get_image_path()

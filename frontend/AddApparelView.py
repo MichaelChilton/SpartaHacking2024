@@ -71,7 +71,17 @@ class AddApparelView(Screen):
         btn_upload.bind(on_press=self.on_Closet_UI)
         #======= CONFIRM BUTTON =======================================
         btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=1, )
-        btn_confirm.bind(on_press=self.on_Closet_UI)
+        def PlaceInfolder():
+            crop()
+            remove_background()
+            incrament = rand.randint(0,10000)
+            if mainbutton.text == "Top":
+                os.rename('images/selfie.png', 'images/'+ mainbutton.text + f'/Top{incrament}.png')
+            elif mainbutton.text == "Pants":
+                os.rename('images/selfie.png','images/'+ mainbutton.text + f'/Pants{incrament}.png')
+            else:
+                os.rename('images/selfie.png','images/'+ mainbutton.text + f'/Shoes{incrament}.png')
+        btn_confirm.bind(on_press=PlaceInfolder)
         def remove_background():
             input_path = 'images/selfie.png'
             output_path = 'images/selfie.png'
@@ -91,16 +101,7 @@ class AddApparelView(Screen):
             im_cropped = im.crop((crop_left, crop_top, crop_right, crop_bottom))
             # Save the cropped image
             im_cropped.save('images/selfie.png')
-        def PlaceInfolder(self):
-            crop()
-            remove_background()
-            incrament = rand.randint(0,10000)
-            if mainbutton.text == "Top":
-                os.rename('images/selfie.png', 'images/'+ mainbutton.text + f'/Top{incrament}.png')
-            elif mainbutton.text == "Pants":
-                os.rename('images/selfie.png','images/'+ mainbutton.text + f'/Pants{incrament}.png')
-            else:
-                os.rename('images/selfie.png','images/'+ mainbutton.text + f'/Shoes{incrament}.png')
+       
             
        #======= TAKE PHOTO BUTTON ====================================
         btn_take_photo = Button(text="Take Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=1)
@@ -126,4 +127,5 @@ class AddApparelView(Screen):
 
     def onCameraClick(self, instance):
         self.camera.export_to_png('images/selfie.png')
+
 

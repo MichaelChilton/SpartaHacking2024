@@ -17,15 +17,19 @@ class MainApp(App):
     def build(self):
         sm = ScreenManager()
         Window.fullscreen = 'auto'
+        
+        if os.path.exists('images/selfie.png'):
+            os.remove('images/selfie.png')
+        
 
         my_clothing_items = []
-        images_folder = 'D:\\GitHub_Repos\\SpartaHack_2024\\SpartaHacking2024\\images'
+        images_folder = 'images'
         sub_folders = os.listdir(images_folder)
 
         for sub_folder in sub_folders:
-            apparel = os.listdir(images_folder + '\\'+ sub_folder)
+            apparel = os.listdir(images_folder + '/'+ sub_folder)
             for clothe in apparel:
-                image_path = images_folder + '\\' + sub_folder + '\\' + clothe
+                image_path = images_folder + '/' + sub_folder + '/' + clothe
                 image_name = clothe.split('.')[0]
                 category = sub_folder
                 clothing_item = ClothingItem(image_name, image_path, category)
@@ -39,6 +43,7 @@ class MainApp(App):
         sm.add_widget(AddApparelView(screen_manager=sm, name='AddApparelView'))
         # to add new screen, add it here like the MyClosetView above
         return sm
+
     def get_selected_clothing_item(self):
         return selected_clothing_item
     def set_selected_clothing_item(self):
