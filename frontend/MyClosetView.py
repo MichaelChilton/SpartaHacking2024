@@ -7,6 +7,7 @@ from kivy.uix.dropdown import DropDown
 from kivy.core.window import Window
 from kivy.uix.image import Image
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.scrollview import ScrollView
 
 
 class MyClosetView(Screen):
@@ -29,21 +30,26 @@ class MyClosetView(Screen):
         
         dropdown.width = Window.width  # Set the width of the dropdown to the width of the screen
         
-        self.add_widget(main_button)
         
         # Create a grid layout for the images
-        grid_layout = GridLayout(cols=3, spacing=0)
+        grid_layout = GridLayout(cols=1, spacing=0)
         
         # TODO: Replace 'path_to_images' with logic to get from whatever objects have the images
         path_to_images = 'images/'
         
         # Load images dynamically from the given path
+        # grid_layout.bind(minimum_height=grid_layout.setter('height'))
+        grid_layout.add_widget(main_button)
         for image_file in os.listdir(path_to_images):
-            if image_file.endswith('.jpg'):
-                image = Image(source=f'{path_to_images}/{image_file}')
-                grid_layout.add_widget(image)
+            image = Image(source=f'{path_to_images}/{image_file}', size=(128, 128))
+            grid_layout.add_widget(image)
 
-        self.add_widget(grid_layout)
+        
+        scroll_view = ScrollView(do_scroll_x=False, do_scroll_y=True)
+        
+        # self.add_widget(main_button)
+        scroll_view.add_widget(grid_layout)
+        self.add_widget(scroll_view)
     
     
     
