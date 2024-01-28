@@ -15,6 +15,7 @@ import os
 import cv2
 import numpy as np
 import random as rand
+from PIL import Image
 class AddApparelView(Screen):
     #===========INITIALIZATION======================================
     
@@ -33,15 +34,8 @@ class AddApparelView(Screen):
         self.camera = Camera(play=True, resolution=(640, 480))
         
         #====== METHODS ===============================================
-        def remove_background():
-            input_path = 'images/selfie.png'
-            output_path = 'selfie.png'
-            with open(input_path, 'rb') as i:
-                with open(output_path, 'wb') as o:
-                    input = i.read()
-                    output = remove(input)
-                    o.write(output)
-                
+        
+        
 
        
         
@@ -78,7 +72,29 @@ class AddApparelView(Screen):
 
         #======= CONFIRM BUTTON =======================================
         btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .4, 'y': 0.05})
+        
+        def remove_background():
+            input_path = 'images/selfie.png'
+            output_path = 'images/selfie.png'
+            input_image = cv2.imread(input_path)
+            output_image = remove(input_image, alpha=0)
+            cv2.imwrite(output_path, output_image)
+        def crop():
+            # Open the captured image
+            im = Image.open('images/selfie.png')
+            # Define the region to crop based on the camera resolution
+            camera_resolution = (640, 480)  # Resolution used for the camera
+            crop_left = (im.width - camera_resolution[0]) // 2
+            crop_top = (im.height - camera_resolution[1]) // 2
+            crop_right = crop_left + camera_resolution[0]
+            crop_bottom = crop_top + camera_resolution[1]
+            # Crop the image
+            im_cropped = im.crop((crop_left, crop_top, crop_right, crop_bottom))
+            # Save the cropped image
+            im_cropped.save('images/selfie.png')
         def PlaceInfolder(self):
+            crop()
+            remove_background()
             incrament = rand.randint(0,10000)
             if mainbutton.text == "Top":
                 os.rename('images/selfie.png', 'images/'+ mainbutton.text + f'/Top{incrament}.png')

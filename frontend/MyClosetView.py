@@ -93,4 +93,4 @@ class MyClosetView(Screen):
     def on_outfit_UI(self, instance):
         self.screen_manager.current = 'MyOutfit'
     def on_add_apparel_UI(self, instance):
-        self.screen_manager.current = 'AddApparel'
+        self.screen_manager.current = 'AddApparelView'
