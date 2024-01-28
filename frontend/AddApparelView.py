@@ -73,9 +73,8 @@ class AddApparelView(Screen):
         #======= CONFIRM BUTTON =======================================
         btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .4, 'y': 0.05})
         def PlaceInfolder(self):
-            os.rename('images/selfie.png', mainbutton.text + '/' +  'coolboi.png')
-            
-        btn_confirm.bind(on_press=PlaceInfolder)
+            os.rename('images/selfie.png','images/'+ mainbutton.text + '/selfie.png')
+       
         
        #======= TAKE PHOTO BUTTON ====================================
         btn_take_photo = Button(text="Take Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .5, 'y': .5})
