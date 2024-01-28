@@ -28,12 +28,12 @@ class MyOutfit(Screen):
         btn1.bind(on_press=self.on_Closet_UI)
 
         # Create the second button with the text 'Click me'
-        btn2 = Button(text='Click me 2', size_hint_x=1, width=1)
-        btn2.bind(on_press=self.on_button_press)
+        btn2 = Button(text='Add Apparel', size_hint_x=1, width=1)
+        btn2.bind(on_press=self.on_add_apparel_UI)
 
         # Create the third button with the text 'Click me'
-        btn3 = Button(text='Click me 3', size_hint_x=1, width=1)
-        btn3.bind(on_press=self.on_button_press)
+        btn3 = Button(text='My Outfit', size_hint_x=1, width=1)
+        btn3.bind(on_press=self.on_outfit_UI)
 
         # Add all three buttons to the horizontal layout
         horizontal_layout.add_widget(btn1)
@@ -72,6 +72,12 @@ class MyOutfit(Screen):
     def on_button_press(self, instance):
         instance.text = "You shouldn't see this"
         self.screen_manager.current = 'MyOutfit'
+    
+
+    def on_outfit_UI(self, instance):
+        self.screen_manager.current = 'MyOutfit'
+    def on_add_apparel_UI(self, instance):
+        self.screen_manager.current = 'AddApparel'
 
     # Buttons ------------------------------------------
 
