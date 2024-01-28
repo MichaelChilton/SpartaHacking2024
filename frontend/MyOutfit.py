@@ -59,5 +59,5 @@ class MyOutfit(Screen):
 
 
     def on_button_press(self, instance):
-        instance.text = 'going to new screen'
+        instance.text = "You shouldn't see this"
         self.screen_manager.current = 'MyOutfit'
