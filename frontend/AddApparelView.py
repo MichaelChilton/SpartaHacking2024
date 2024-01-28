@@ -68,9 +68,10 @@ class AddApparelView(Screen):
         #======= IMPORT BUTTON ========================================
 
         btn_upload = Button(text="Upload Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=1, )
-        btn_upload.bind(on_press=self.on_Closet_UI)
+        btn_upload.bind(on_press=self.MyOutfit)
         #======= CONFIRM BUTTON =======================================
         btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=1, )
+        btn_confirm.bind(on_press=self.on_Closet_UI)
         def PlaceInfolder():
             crop()
             remove_background()
@@ -81,7 +82,7 @@ class AddApparelView(Screen):
                 os.rename('images/selfie.png','images/'+ mainbutton.text + f'/Pants{incrament}.png')
             else:
                 os.rename('images/selfie.png','images/'+ mainbutton.text + f'/Shoes{incrament}.png')
-        btn_confirm.bind(on_press=PlaceInfolder)
+        # btn_confirm.bind(on_press=PlaceInfolder)
         def remove_background():
             input_path = 'images/selfie.png'
             output_path = 'images/selfie.png'
@@ -123,7 +124,8 @@ class AddApparelView(Screen):
 
     def on_Closet_UI(self, instance):
         self.screen_manager.current = 'MyCloset'
-
+    def MyOutfit(self, instance):
+        self.screen_manager.current = 'MyOutfit'
 
     def onCameraClick(self, instance):
         self.camera.export_to_png('images/selfie.png')
