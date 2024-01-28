@@ -35,21 +35,7 @@ class AddApparelView(Screen):
         
         #====== METHODS ===============================================
         
-        def crop():
-            im = Image.open('images/selfie.png')
- 
-            # Setting the points for cropped image
-            left = 155
-            top = 65
-            right = 360
-            bottom = 270
-            
-            # Cropped image of above dimension
-            # (It will not change original image)
-            im1 = im.crop((left, top, right, bottom))
-            
-            # Shows the image in image viewer
-            im1.show()      
+        
 
        
         
@@ -93,8 +79,21 @@ class AddApparelView(Screen):
             input_image = cv2.imread(input_path)
             output_image = remove(input_image, alpha=0)
             cv2.imwrite(output_path, output_image)
- 
+        def crop():
+            # Open the captured image
+            im = Image.open('images/selfie.png')
+            # Define the region to crop based on the camera resolution
+            camera_resolution = (640, 480)  # Resolution used for the camera
+            crop_left = (im.width - camera_resolution[0]) // 2
+            crop_top = (im.height - camera_resolution[1]) // 2
+            crop_right = crop_left + camera_resolution[0]
+            crop_bottom = crop_top + camera_resolution[1]
+            # Crop the image
+            im_cropped = im.crop((crop_left, crop_top, crop_right, crop_bottom))
+            # Save the cropped image
+            im_cropped.save('images/selfie.png')
         def PlaceInfolder(self):
+            crop()
             remove_background()
             incrament = rand.randint(0,10000)
             if mainbutton.text == "Top":
