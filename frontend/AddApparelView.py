@@ -30,9 +30,9 @@ class AddApparelView(Screen):
         self.camera = Camera(play=True, resolution=(640, 480))
         
         #====== METHODS ===============================================
-        def remove_background(self):
-            input_path = 'cool_guy_kivy.png'
-            output_path = 'output.png'
+        def remove_background():
+            input_path = 'images/selfie.png'
+            output_path = 'selfie.png'
             with open(input_path, 'rb') as i:
                 with open(output_path, 'wb') as o:
                     input = i.read()
@@ -74,7 +74,10 @@ class AddApparelView(Screen):
         #======= CONFIRM BUTTON =======================================
         btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .4, 'y': 0.05})
         def PlaceInfolder(self):
-             os.rename('images/selfie.png','images/'+ mainbutton.text + '/selfie.png')
+            
+            remove_background()
+                
+            os.rename('images/selfie.png','images/'+ mainbutton.text + '/selfie.png')
             
         btn_confirm.bind(on_press=PlaceInfolder)
         
