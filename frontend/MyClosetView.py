@@ -9,17 +9,17 @@ from kivy.uix.image import Image
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
-
+from kivy.logger import Logger
 
 class MyClosetView(Screen):
-    def __init__(self, screen_manager, **kwargs):
+    def __init__(self, screen_manager, clothing_items, **kwargs):
         super(MyClosetView, self).__init__(**kwargs)
         self.screen_manager = screen_manager
-
+        self.clothing_items = clothing_items
         # Create a ScrollView
         scroll_view = ScrollView()
 
-        dropdown = DropDown()
+        dropdown = DropDown(auto_width=False, width=150)
         # TODO: make this list load dynamically from somewhere better
         categories = ['Shirt', 'Pants', 'Shoes (raggety)']  # Replace with your own categories
 
@@ -44,14 +44,11 @@ class MyClosetView(Screen):
         grid_layout.row_default_height = 100
         grid_layout.add_widget(dropdown)
 
-        # TODO: Replace 'path_to_images' with logic to get from whatever objects have the images
-        path_to_images = 'images'
-
-        # Load images dynamically from the given path
-        for image_file in os.listdir(path_to_images):
-            if image_file.endswith('.jpg'):
-                image = Image(source=f'{path_to_images}/{image_file}', size=(Window.width, Window.height), allow_stretch=True)
-                grid_layout.add_widget(image)
+        # Load images dynamically from the given clothing_items list
+        for clothing_item in clothing_items:
+            image_file = clothing_item.get_image_path()
+            image = Image(source=image_file, size=(Window.width, Window.height), allow_stretch=True)
+            grid_layout.add_widget(image)
 
         # Set default height for rows
         grid_layout.row_force_default = True
