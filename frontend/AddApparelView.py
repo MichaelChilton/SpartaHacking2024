@@ -1,4 +1,4 @@
-import os
+
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
@@ -9,15 +9,38 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.screenmanager import SlideTransition
 from kivy.core.window import Window
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.camera import Camera
+from rembg import remove
 
 class AddApparelView(Screen):
+    #===========INITIALIZATION======================================
+    def callback(instance):
+        print('The button <%s> is being pressed' % instance.text)
+    
     def __init__(self, screen_manager, **kwargs):
         super(AddApparelView, self).__init__(**kwargs)
         self.screen_manager = screen_manager
+        
 
         # Static Variables
         button_height = 44
-
+        
+        
+        #======= CAMERA ===============================================
+        # Create a camera object
+        camera = Camera(play=True, resolution=(640, 480))
+        
+        #====== METHODS ===============================================
+        def remove_background(self):
+            input_path = '../cool_guy_kivy.png'
+            output_path = 'output.png'
+            with open(input_path, 'rb') as i:
+                with open(output_path, 'wb') as o:
+                    input = i.read()
+                    output = remove(input)
+                    o.write(output)
+       
         #========== DROPDOWN MENU ==============================
 
         # Create a list of options
@@ -49,11 +72,15 @@ class AddApparelView(Screen):
 
         #======= CONFIRM BUTTON =======================================
 
-        btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .4, 'y': 0.05}) 
-
+        btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .4, 'y': 0.05})
+       
+        
+       
         #====== ADD WIDGETS ===========================================
         self.add_widget(mainbutton)
         self.add_widget(btn_upload)
         self.add_widget(btn_confirm)
+        self.add_widget(camera)
 
+        #===========BUTTON FUCNTIONALITY=====================
         
