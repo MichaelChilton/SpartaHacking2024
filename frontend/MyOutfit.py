@@ -49,19 +49,19 @@ class MyOutfit(Screen):
         # For Head of person
         Head = Button(text='Head', size_hint=(0.2, 0.2))  # Set size_hint directly
         Head.pos_hint = {'center_x': 0.5, 'center_y': .79}  # Center the button
-        Head.bind(on_press=self.on_button_press)
+        Head.bind(on_press=self.on_Closet_UI)
         self.add_widget(Head)
 
         # For Torso of person
         Torso = Button(text='Torso', size_hint_x=0.2, size_hint_y=0.2, width=1)
         Torso.pos_hint = {'center_x': 0.5, 'center_y': .56}
-        Torso.bind(on_press=self.on_button_press)
+        Torso.bind(on_press=self.on_Closet_UI)
         self.add_widget(Torso)
 
         # For Legs of person
         Legs = Button(text='Legs', size_hint_x=0.2, size_hint_y=0.2, width=1)
         Legs.pos_hint = {'center_x': 0.5, 'center_y': .33}
-        Legs.bind(on_press=self.on_button_press)
+        Legs.bind(on_press=self.on_Closet_UI)
         self.add_widget(Legs)
 
     # Buttons ------------------------------------------
@@ -79,6 +79,11 @@ class MyOutfit(Screen):
     def on_button_press(self, instance):
         instance.text = "You shouldn't see this"
         self.screen_manager.current = 'MyOutfit'
+
+    def on_outfit_UI(self, instance):
+        self.screen_manager.current = 'MyOutfit'
+    def on_add_apparel_UI(self, instance):
+        self.screen_manager.current = 'AddApparelView'
 
     # Buttons ------------------------------------------
 

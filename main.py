@@ -1,6 +1,6 @@
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
-
+from kivy.core.window import Window
 from frontend.AddApparelView import AddApparelView
 from frontend.MyClosetView import MyClosetView
 from frontend.MyOutfit import MyOutfit
@@ -12,6 +12,7 @@ from frontend.MyOutfit import MyOutfit
 class MainApp(App):
     def build(self):
         sm = ScreenManager()
+        Window.fullscreen = 'auto'
 
         sm.add_widget(MyOutfit(screen_manager=sm, name='MyOutfit'))
         sm.add_widget(MyClosetView(screen_manager=sm, name='MyCloset'))

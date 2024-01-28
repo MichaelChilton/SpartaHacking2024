@@ -26,6 +26,7 @@ class MyClosetView(Screen):
         for category in categories:
             btn = Button(text=category, size_hint_y=None, height=44, width=Window.width)
             btn.bind(on_release=lambda btn: dropdown.select(btn.text))
+            btn.pos_hint = {'center_x': 0.5, 'center_y': .33}
             dropdown.add_widget(btn)
 
         main_button = Button(text='Select Category', size_hint=(None, None), pos_hint={'top': 1}, width=Window.width)
