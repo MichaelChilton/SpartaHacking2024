@@ -26,12 +26,14 @@ class MyClosetView(Screen):
         for category in categories:
             btn = Button(text=category, size_hint_y=None, height=44, width=Window.width)
             btn.bind(on_release=lambda btn: dropdown.select(btn.text))
-            btn.pos_hint = {'center_x': 0.5, 'center_y': .33}
             dropdown.add_widget(btn)
 
         main_button = Button(text='Select Category', size_hint=(None, None), pos_hint={'top': 1}, width=Window.width)
         main_button.bind(on_release=dropdown.open)
         dropdown.bind(on_select=lambda instance, x: setattr(main_button, 'text', x))
+
+        # Adjust the position of the dropdown
+        dropdown.pos_hint = {'x': 0.5, 'y': 0.7}
 
         dropdown.width = Window.width  # Set the width of the dropdown to the width of the screen
 
@@ -83,12 +85,12 @@ class MyClosetView(Screen):
         # Add the horizontal layout to the screen
         self.add_widget(horizontal_layout)
 
-    
-    
+
+
     def on_button_press(self, instance):
         instance.text = 'going to new screen'
         self.screen_manager.current = 'new_view'
-    
+
     def on_Closet_UI(self, instance):
         self.screen_manager.current = 'MyCloset'
     def on_outfit_UI(self, instance):

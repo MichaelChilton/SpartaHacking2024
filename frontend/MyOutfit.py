@@ -66,7 +66,6 @@ class MyOutfit(Screen):
 
     # Buttons ------------------------------------------
     def on_Closet_UI(self, instance):
-
         self.screen_manager.current = 'MyCloset'
 
     def on_OutFit_UI(self, instance):
