@@ -8,46 +8,52 @@ from kivy.base import runTouchApp
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.screenmanager import SlideTransition
+from kivy.core.window import Window
 
 class AddApparelView(Screen):
     def __init__(self, screen_manager, **kwargs):
         super(AddApparelView, self).__init__(**kwargs)
         self.screen_manager = screen_manager
-        # create a dropdown with 10 buttons
 
-        dropdown = DropDown()
+        # Static Variables
+        button_height = 44
 
-        # List of apparel types
-        apparel_types = ['Shirt', 'Pants', 'Shoes']
+        #========== DROPDOWN MENU ==============================
 
-        for apparel_type in apparel_types:
-            # When adding widgets, we need to specify the height manually
-            # (disabling the size_hint_y) so the dropdown can calculate
-            # the area it needs.
+        # Create a list of options
+        options = ["Top", "Pants", "Shoes"]
 
-            btn = Button(text=apparel_type, size_hint_y=None, height=40)
-
-            # for each button, attach a callback that will call the select() method
-            # on the dropdown. We'll pass the text of the button as the data of the
-            # selection.
+        # Create a dropdown with buttons for each option
+        dropdown = DropDown(auto_width=False, width=150)
+        for option in options:
+            btn = Button(text=option, size_hint_y=None, height=40, text_size=(None, None))
             btn.bind(on_release=lambda btn: dropdown.select(btn.text))
-
-            # then add the button inside the dropdown
             dropdown.add_widget(btn)
 
-        # create a big main button
-        mainbutton = Button(text='Apparel Type', size_hint=(None, None))
+        # Create a main button
+        mainbutton = Button(text='Select Category', size_hint=(None, None), pos_hint={'x': .1, 'y': .2}, text_size=(None, None), width=150, height=button_height)
 
-        # show the dropdown menu when the main button is released
-        # note: all the bind() calls pass the instance of the caller (here, the
-        # mainbutton instance) as the first argument of the callback (here,
-        # dropdown.open.).
+        # Show the dropdown menu when the main button is released
         mainbutton.bind(on_release=dropdown.open)
 
-        # one last thing, listen for the selection in the dropdown list and
-        # assign the data to the button text.
-        dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
+        # Modify the on_select callback to print a message based on the selected option
+        def on_select_callback(instance, value):
+            mainbutton.text=value
+            # You can perform additional actions based on the selected value here
 
-        runTouchApp(mainbutton)
+        dropdown.bind(on_select=on_select_callback)
 
-        self.add_widget(dropdown)
+        #======= IMPORT BUTTON ========================================
+
+        btn_upload = Button(text="Upload Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .7, 'y': .2}) 
+
+        #======= CONFIRM BUTTON =======================================
+
+        btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .4, 'y': 0.05}) 
+
+        #====== ADD WIDGETS ===========================================
+        self.add_widget(mainbutton)
+        self.add_widget(btn_upload)
+        self.add_widget(btn_confirm)
+
+        
