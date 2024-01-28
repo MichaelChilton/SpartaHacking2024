@@ -1,14 +1,24 @@
 import kivy
 from kivy.app import App
+from kivy.uix.behaviors import ButtonBehavior, TouchRippleBehavior
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.graphics import Color, Rectangle
+from kivy.graphics import Ellipse, Color
+from kivy.uix.button import Button
+from kivy.graphics import Color, Ellipse
 
 
 class MyOutfit(Screen):
     def __init__(self, screen_manager, **kwargs):
         super(MyOutfit, self).__init__(**kwargs)
         self.screen_manager = screen_manager
+        with self.canvas.before:
+            Color(0.2, 0.5, 0.8, 1)  # Set the background color (RGB format, in this case, light gray)
+            self.rect = Rectangle(size=self.size, pos=self.pos)
+            # Bind size and pos properties to update the background when screen changes
+            self.bind(size=self.update_background, pos=self.update_background)
 
         # Create a horizontal BoxLayout for buttons at the bottom
         horizontal_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
@@ -54,10 +64,19 @@ class MyOutfit(Screen):
         Legs.bind(on_press=self.on_button_press)
         self.add_widget(Legs)
 
+    # Buttons ------------------------------------------
     def on_Closet_UI(self, instance):
-        self.screen_manager.current = 'MyCloset'
 
+        self.screen_manager.current = 'MyCloset'
 
     def on_button_press(self, instance):
         instance.text = "You shouldn't see this"
         self.screen_manager.current = 'MyOutfit'
+
+    # Buttons ------------------------------------------
+
+    # Background Color ---------------------
+    def update_background(self, instance, value):
+        self.rect.size = instance.size
+        self.rect.pos = instance.pos
+    # Background Color ---------------------
