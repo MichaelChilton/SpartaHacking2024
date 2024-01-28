@@ -19,7 +19,7 @@ class MyClosetView(Screen):
         # Create a ScrollView
         scroll_view = ScrollView()
 
-        dropdown = DropDown()
+        dropdown = DropDown(auto_width=False, width=150)
         # TODO: make this list load dynamically from somewhere better
         categories = ['Shirt', 'Pants', 'Shoes (raggety)']  # Replace with your own categories
 
@@ -44,10 +44,9 @@ class MyClosetView(Screen):
 
         # Load images dynamically from the given clothing_items list
         for clothing_item in clothing_items:
-            image_file = clothing_item.get_image()
+            image_file = clothing_item.get_image_path()
             image = Image(source=image_file, size=(Window.width, Window.height), allow_stretch=True)
             grid_layout.add_widget(image)
-            Logger.info(clothing_item.get_name())
 
         # Set default height for rows
         grid_layout.row_force_default = True
