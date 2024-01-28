@@ -62,6 +62,7 @@ class AddApparelView(Screen):
         def on_select_callback(instance, value):
             mainbutton.text=value
             chosen_category = value
+
             # You can perform additional actions based on the selected value here
 
         dropdown.bind(on_select=on_select_callback)
@@ -73,8 +74,9 @@ class AddApparelView(Screen):
         #======= CONFIRM BUTTON =======================================
         btn_confirm = Button(text="Add to Closet", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .4, 'y': 0.05})
         def PlaceInfolder(self):
-            os.rename('images/selfie.png','images/'+ mainbutton.text + '/selfie.png')
-       
+             os.rename('images/selfie.png','images/'+ mainbutton.text + '/selfie.png')
+            
+        btn_confirm.bind(on_press=PlaceInfolder)
         
        #======= TAKE PHOTO BUTTON ====================================
         btn_take_photo = Button(text="Take Photo", size_hint_y=None, height=button_height, text_size=(None, None), size_hint_x=0.2, pos_hint={'x': .5, 'y': .5})
