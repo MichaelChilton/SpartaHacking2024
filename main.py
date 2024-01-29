@@ -44,10 +44,10 @@ class MainApp(App):
         # to add new screen, add it here like the MyClosetView above
         return sm
 
-    def get_selected_clothing_item(self):
-        return selected_clothing_item
-    def set_selected_clothing_item(self):
-        return selected_clothing_item
+    # def get_selected_clothing_item(self):
+    #     return selected_clothing_item
+    # def set_selected_clothing_item(self):
+    #     return selected_clothing_item
 
 if __name__ == '__main__':
     MainApp().run()
